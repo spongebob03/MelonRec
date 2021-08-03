@@ -11,7 +11,7 @@ from tqdm import tqdm
 from arena_util import write_json, load_json
 from evaluate import ArenaEvaluator
 
-from data_util2 import tags_ids_convert, save_freq_song_id_dict, binary_songs2ids, binary_tags2ids
+from data_util2 import tags_ids_convert, save_freq_song_id_dict, binary_data2ids
 from MelonDataset2 import SongTagDataset, SongTagGenreDataset
 from Models2 import AutoEncoder
 from Word2vec2 import train_tokenizer_w2v
@@ -90,8 +90,8 @@ def train(train_dataset, model_file_path, id2prep_song_file_path, id2tag_file_pa
                         songs_input, tags_input = torch.split(_data, num_songs, dim=1)
                         songs_output, tags_output = torch.split(output, num_songs, dim=1)
 
-                        songs_ids = binary_songs2ids(songs_input, songs_output, id2prep_song_dict)
-                        tag_ids = binary_tags2ids(tags_input, tags_output, id2tag_dict)
+                        songs_ids = binary_data2ids(songs_input, songs_output, 100, id2prep_song_dict)
+                        tag_ids = binary_data2ids(tags_input, tags_output, 10, id2tag_dict)
 
                         _id = list(map(int, _id))
                         for i in range(len(_id)):
