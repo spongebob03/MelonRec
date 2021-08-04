@@ -11,10 +11,10 @@ from tqdm import tqdm
 from arena_util import write_json, load_json
 from evaluate import ArenaEvaluator
 
-from data_util2 import tags_ids_convert, save_freq_song_id_dict, binary_data2ids
-from MelonDataset2 import SongTagDataset, SongTagGenreDataset
-from Models2 import AutoEncoder
-from Word2vec2 import train_tokenizer_w2v
+from preprocess.data_util2 import tags_ids_convert, save_freq_song_id_dict, binary_data2ids
+from preprocess.MelonDataset2 import SongTagDataset, SongTagGenreDataset
+from train.Models2 import AutoEncoder
+from preprocess.Word2vec2 import train_tokenizer_w2v
 
 
 def train(train_dataset, model_file_path, id2prep_song_file_path, id2tag_file_path, question_dataset, answer_file_path):
@@ -126,6 +126,7 @@ if __name__ == "__main__":
     num_workers = args.num_workers
     freq_thr = args.freq_thr
     mode = args.mode
+    mode = 0
     
     # mode에 따른 train dataset과 관련 데이터 로드
     question_data = None
@@ -192,11 +193,13 @@ if __name__ == "__main__":
         default_file_path = 'res'
         question_file_path = 'res/val.json'
         train_file_path = 'res/train.json'
+
     elif model_postfix == 'test':
         default_file_path = 'res'
         val_file_path = 'res/val.json'
         question_file_path = 'res/test.json'
         train_file_path = 'res/train.json'
+
     elif model_postfix == 'local_val':
         default_file_path = 'arena_data'
         train_file_path = f'{default_file_path}/orig/train.json'

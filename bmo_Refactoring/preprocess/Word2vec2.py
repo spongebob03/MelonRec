@@ -1,11 +1,6 @@
 #region <<module>>
 import sys
 import json
-import io
-import os
-import copy
-import random
-import math
 import datetime as dt
 import distutils.dir_util
 import numpy as np
@@ -21,13 +16,13 @@ from numpy import dot
 from numpy.linalg import norm
 from sklearn.metrics.pairwise import cosine_similarity
 from torch import nn
-from arena_util import write_json, load_json
+from dataLoad.arena_util2 import write_json, load_json
 #endregion
 
 vocab_size = 24000
 method = 'bpe'
 
-
+# arena_util을 import했는데 또 load_json..?
 def load_json(fname):
     with open(fname, encoding='utf8') as f:
         json_obj = json.load(f)

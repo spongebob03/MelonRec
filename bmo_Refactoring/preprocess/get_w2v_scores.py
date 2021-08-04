@@ -24,7 +24,7 @@ from numpy.linalg import norm
 from sklearn.metrics.pairwise import cosine_similarity
 from torch import nn
 from arena_util import write_json, load_json
-from Word2vec2 import title_tokenizer
+from preprocess.Word2vec2 import title_tokenizer
 #endregion
 
 vocab_size = 24000
