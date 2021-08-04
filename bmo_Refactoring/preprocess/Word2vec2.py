@@ -1,7 +1,6 @@
-import os
+#region <<module>>
 import sys
 import json
-import torch
 import io
 import os
 import copy
@@ -23,6 +22,7 @@ from numpy.linalg import norm
 from sklearn.metrics.pairwise import cosine_similarity
 from torch import nn
 from arena_util import write_json, load_json
+#endregion
 
 vocab_size = 24000
 method = 'bpe'
@@ -36,13 +36,6 @@ def load_json(fname):
 
 
 def make_input4tokenizer(train_file_path, genre_file_path, result_file_path, valid_file_path=None, test_file_path=None):
-    def _wv_tags(tags_list):
-        taS = []
-        for tags in tags_list:
-            taS.append(' '.join(tags))
-
-        return(taS)
-
     def _wv_genre(genre):
         genre_dict = dict()
         for code, value in genre:
@@ -130,16 +123,6 @@ def get_tokens_from_sentences(sp, sentences):
             tokenized_sentences.append(new_tokens)
 
     return tokenized_sentences
-
-
-def get_tokens_from_sentence(sp, sentence):
-    new_tokens = []
-    tokens = sp.EncodeAsPieces(sentence)
-    for token in tokens:
-        token = token.replace("▁", "")
-        if len(token) > 1:
-            new_tokens.append(token)
-    return new_tokens
 
 
 class string2vec():
