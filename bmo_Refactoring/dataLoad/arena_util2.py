@@ -7,7 +7,8 @@ from collections import Counter
 
 import numpy as np
 
-
+def module_test():
+    return 'module work'
 # branch test
 def write_json(data, fname):
     def _conv(o):
@@ -26,7 +27,7 @@ def load_json(fname):
     with open(fname, encoding='utf-8') as f:
         json_obj = json.load(f)
 
-    return json_obj[:50] # 작은 데이터셋으로 해보기
+    return json_obj
 
 
 def debug_json(r):
@@ -46,6 +47,3 @@ def most_popular(playlists, col, topk_count):
 
     topk = c.most_common(topk_count)
     return c, [k for k, v in topk]
-
-def module_test():
-    print("module work!!!")

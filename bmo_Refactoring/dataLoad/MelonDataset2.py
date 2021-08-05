@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
 from torch.utils.data import Dataset
-from dataLoad.arena_util2 import load_json
-from preprocess.data_util2 import genre_gn_all_preprocessing, genre_DicGenerator
+from dataLoad.arena_util2 import load_json, module_test
 import torch
 
 def genre_gn_all_preprocessing(genre_gn_all):
@@ -135,3 +134,5 @@ class SongTagGenreDataset(ParentDataset):
         if v_gnr.sum() > 0:
             v_gnr = v_gnr / v_gnr.sum()
         return v_gnr
+
+module_test()

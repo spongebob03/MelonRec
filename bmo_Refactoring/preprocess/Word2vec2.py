@@ -16,13 +16,13 @@ from numpy import dot
 from numpy.linalg import norm
 from sklearn.metrics.pairwise import cosine_similarity
 from torch import nn
-from dataLoad.arena_util2 import write_json, load_json
 #endregion
 
 vocab_size = 24000
 method = 'bpe'
 
-# arena_util을 import했는데 또 load_json..?
+# 같은 경로이거나 하위 모듈인 경우 from 폴더.모듈로 임포트
+# 다른 폴더이거나 상위 폴더라면 절대경로 추가
 def load_json(fname):
     with open(fname, encoding='utf8') as f:
         json_obj = json.load(f)

@@ -8,8 +8,8 @@ import numpy as np
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from arena_util import write_json, load_json
-from evaluate import ArenaEvaluator
+from dataLoad.arena_util2 import write_json, load_json
+from evaluate2 import ArenaEvaluator
 
 from preprocess.data_util2 import tags_ids_convert, save_freq_song_id_dict, binary_data2ids
 from preprocess.MelonDataset2 import SongTagDataset, SongTagGenreDataset
@@ -126,43 +126,20 @@ if __name__ == "__main__":
     num_workers = args.num_workers
     freq_thr = args.freq_thr
     mode = args.mode
-    mode = 0
     
     # mode에 따른 train dataset과 관련 데이터 로드
     question_data = None
     question_dataset = None
     answer_file_path = None
-    if mode == 0: # split data에 대해서는 훈련 중간 중간 성능 확인을 위해서 question, answer 불러옴
-        default_file_path = 'arena_data/'
-        model_postfix = 'local_val'
 
-        train_file_path = f'{default_file_path}/orig/train.json'
-        question_file_path = f'{default_file_path}/questions/val.json'
-        answer_file_path = f'{default_file_path}/answers/val.json'
+    default_file_path = 'small_datasets'
+    model_postfix = 'val'
 
-        train_data = load_json(train_file_path)
-        question_data = load_json(question_file_path)
+    train_file_path = f'{default_file_path}/train.json'
+    val_file_path = f'{default_file_path}/val.json'
+    test_file_path = f'{default_file_path}/test.json'
 
-    elif mode == 1:
-        default_file_path = 'res'
-        model_postfix = 'val'
-
-        train_file_path = f'{default_file_path}/train.json'
-        val_file_path = f'{default_file_path}/val.json'
-        train_data = load_json(train_file_path) + load_json(val_file_path)
-
-    elif mode == 2:
-        default_file_path = 'res'
-        model_postfix = 'test'
-
-        train_file_path = f'{default_file_path}/train.json'
-        val_file_path = f'{default_file_path}/val.json'
-        test_file_path = f'{default_file_path}/test.json'
-        train_data = load_json(train_file_path) + load_json(val_file_path) + load_json(test_file_path)
-
-    else:
-        print('mode error! local_val: 0, val: 1, test: 2')
-        sys.exit(1)
+    train_data = load_json(train_file_path) + load_json(val_file_path)
 
     # Autoencoder의 input: song, tag binary vector의 concatenate, tags는 str이므로 id로 변형할 필요 있음
     tag2id_file_path = f'{default_file_path}/tag2id_{model_postfix}.npy'
@@ -189,45 +166,13 @@ if __name__ == "__main__":
     # w2v 학습 시작
     vocab_size = 24000
     method = 'bpe'
-    if model_postfix == 'val':
-        default_file_path = 'res'
-        question_file_path = 'res/val.json'
-        train_file_path = 'res/train.json'
-
-    elif model_postfix == 'test':
-        default_file_path = 'res'
-        val_file_path = 'res/val.json'
-        question_file_path = 'res/test.json'
-        train_file_path = 'res/train.json'
-
-    elif model_postfix == 'local_val':
-        default_file_path = 'arena_data'
-        train_file_path = f'{default_file_path}/orig/train.json'
-        question_file_path = f'{default_file_path}/questions/val.json'
-        default_file_path = f'{default_file_path}/orig'
+    
 
     genre_file_path = 'res/genre_gn_all.json'
 
     tokenize_input_file_path = f'model/tokenizer_input_{method}_{vocab_size}_{model_postfix}.txt'
 
-    if model_postfix == 'local_val':
-        val_file_path = None
-        test_file_path = None
-        train = load_json(train_file_path)
-        question = load_json(question_file_path)
-    elif model_postfix == 'val':
-        test_file_path = None
-        val_file_path = question_file_path
-        train = load_json(train_file_path)
-        question = load_json(question_file_path)
-    elif model_postfix == 'test':
-        val_file_path = val_file_path
-        test_file_path = question_file_path
-        train = load_json(train_file_path)
-        val = load_json(val_file_path)
-        test = load_json(test_file_path)
-        train = train + val
-        question = test
+
 
     train_tokenizer_w2v(train_file_path, val_file_path, test_file_path, genre_file_path, tokenize_input_file_path,
                         model_postfix)

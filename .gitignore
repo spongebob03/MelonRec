@@ -10,3 +10,5 @@ results/
 *.bat
 *.zip
 *.npy
+
+.vscode
