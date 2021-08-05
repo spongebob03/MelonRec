@@ -23,7 +23,7 @@ from numpy import dot
 from numpy.linalg import norm
 from sklearn.metrics.pairwise import cosine_similarity
 from torch import nn
-from arena_util import write_json, load_json
+from dataLoad.arena_util2 import write_json, load_json
 from preprocess.Word2vec2 import title_tokenizer
 #endregion
 

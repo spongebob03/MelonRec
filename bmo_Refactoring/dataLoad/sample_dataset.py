@@ -1,5 +1,5 @@
 from sklearn.utils import resample
-from arena_util2 import load_json, write_json
+from dataLoad.arena_util2 import load_json, write_json
 
 def load_origin_data(key):
     PATH = 'res/'

@@ -12,8 +12,8 @@ from dataLoad.arena_util2 import write_json, load_json
 from evaluate2 import ArenaEvaluator
 
 from preprocess.data_util2 import tags_ids_convert, save_freq_song_id_dict, binary_data2ids
-from preprocess.MelonDataset2 import SongTagDataset, SongTagGenreDataset
-from train.Models2 import AutoEncoder
+from dataLoad.MelonDataset2 import SongTagDataset, SongTagGenreDataset
+from Models2 import AutoEncoder
 from preprocess.Word2vec2 import train_tokenizer_w2v
 
 

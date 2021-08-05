@@ -6,12 +6,12 @@ import matplotlib.pyplot as plt
 import torch
 from tqdm import tqdm
 from torch.utils.data import DataLoader
-from preprocess.MelonDataset2 import SongTagDataset, SongTagGenreDataset
+from dataLoad.MelonDataset2 import SongTagDataset, SongTagGenreDataset
 from preprocess.data_util2 import *
 from dataLoad.arena_util2 import write_json, load_json
-from evaluate import ArenaEvaluator
+from evaluate2 import ArenaEvaluator
 from collections import Counter, defaultdict
-from train.Models2 import AutoEncoder
+from Models2 import AutoEncoder
 
 from numpy import dot
 from numpy.linalg import norm
