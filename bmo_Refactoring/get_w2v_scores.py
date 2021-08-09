@@ -27,7 +27,7 @@ from dataLoad.arena_util2 import write_json, load_json
 from preprocess.Word2vec2 import title_tokenizer
 #endregion
 
-vocab_size = 24000
+vocab_size = 1600
 method = 'bpe'
 
 def plylsts2vec(_data, t_plylst_title_tag_emb, w2v_model):

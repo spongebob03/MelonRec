@@ -126,7 +126,7 @@ if __name__ == "__main__":
     num_workers = args.num_workers
     freq_thr = args.freq_thr
     mode = args.mode
-    
+    mode = 0
     # mode에 따른 train dataset과 관련 데이터 로드
     question_data = None
     question_dataset = None
@@ -164,7 +164,8 @@ if __name__ == "__main__":
     train(train_dataset, model_file_path, id2prep_song_file_path, id2tag_file_path, question_dataset, answer_file_path)
 
     # w2v 학습 시작
-    vocab_size = 24000
+    # small_data - Vocabulary size too high (24000) 데이터를 늘리거나 vocab size를 늘려야한다
+    vocab_size = 16000 
     method = 'bpe'
     
 
